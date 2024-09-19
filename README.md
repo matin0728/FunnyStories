@@ -1,0 +1,2 @@
+# FunnyStories
+Anything interesting!
