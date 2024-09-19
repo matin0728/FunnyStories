@@ -1,6 +1,6 @@
 
 
-# Promp No.1 #
+# Prompt No.1 #
 
 In a ReactNative app, write a C++ module "UploadManager", which host a singleton and can be called from native side, it has "start", "stop" method, in "start", and has responsibilities as follow instructions:
 
@@ -10,17 +10,16 @@ In a ReactNative app, write a C++ module "UploadManager", which host a singleton
 
 Add other functionality necessary to meet the requirements.
 
-# Promp No.2 #
+# Prompt No.2 #
 
 assuming "uploadRecords" is a async method, and get result in the callback, please give a updated version of the code.
 
-# Promp No.3 #
+# Prompt No.3 #
 
 Assume "fetchRecords" is an async method too, and add another function "deleteRecords", as a result, "fetchRecords", "uploadRecords", "deleteRecords" will execute serially, and all of them are async method, so, you do not make an async task to wrap them up, and only go to the next step if previous step is successed, please give a updated version of code.
 
 # Response #
----
----
+
 
 If `uploadRecords` is an asynchronous method and returns its result via a callback, we need to adjust the logic so that the `onTrigger` method handles the callback properly, ensuring the task is completed only after the upload's result is received.
 
@@ -164,7 +163,7 @@ This design allows the upload task to be fully asynchronous and non-blocking, re
 
 
 ---
----
+# Response Final #
 
 If both `fetchRecords`, `uploadRecords`, and `deleteRecords` are asynchronous methods, we need to chain them sequentially. Instead of using `std::async`, we will handle the asynchronous flow directly using callbacks (or using futures/promises depending on the implementation of the async methods).
 
