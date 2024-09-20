@@ -5,18 +5,18 @@
 In a ReactNative app, write a C++ module "UploadManager", which host a singleton and can be called from native side, it has "start", "stop" method, in "start", and has responsibilities as follow instructions:
 
 - instance method "start": Setup a timer, and execute every 30s, has a bool parameter to indicate if it is scheduled immdieatelly, otherwise trigger the timer after 30s.
-- instance method "onTrigger": check "ifIsRunning" lock, and fetch records from db helper, then upload them with uploader which is a instance property, if success, delete records from local database, if all task is done or any error occurs, release the lock and wait for next trigger, and all task should be down async but not maintain dedicated thread to do that, using async task.
+- instance method "onTrigger": check "ifIsRunning" lock, and fetch records from db helper, then upload them with uploader which is a instance property, if success, delete records from local database, if all task is done or any error occurs, release the lock and wait for next trigger, and all tasks should be doen asynchronously but not maintain dedicated thread to do that, using async task.
 - instance method "stop": cancel the timer.
 
 Add other functionality necessary to meet the requirements.
 
 # Prompt No.2 #
 
-assuming "uploadRecords" is a async method, and get result in the callback, please give a updated version of the code.
+Assuming "uploadRecords" is an async method, and get result in the callback, please give a updated version of the code.
 
 # Prompt No.3 #
 
-Assume "fetchRecords" is an async method too, and add another function "deleteRecords", as a result, "fetchRecords", "uploadRecords", "deleteRecords" will execute serially, and all of them are async method, so, you do not make an async task to wrap them up, and only go to the next step if previous step is successed, please give a updated version of code.
+Assume "fetchRecords" is an async method too, and add another function "deleteRecords", as a result, "fetchRecords", "uploadRecords", "deleteRecords" will execute serially, and all of them are async method, so, you do not need to make an async task to wrap them up, and only go to the next step if previous step is successed, please give a updated version of code.
 
 # Response #
 
