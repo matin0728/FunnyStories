@@ -297,143 +297,13 @@ Now, each class has been separated into its own header (`.h`) and implementation
 
 Yes, you're absolutely right! Since `uploadEvents` is called on the internal working thread managed by `MetricsUploadManager`, there's no need for it to be asynchronous (`std::async`). Instead, you can refactor it to execute synchronously as well, just like the database operations. This will simplify the code, as everything will be running on the same dedicated thread without additional threading overhead.
 
-Here’s the refactored code for the `uploadEvents` method:
-
-### `BillingManager.h` (Refactored)
-```cpp
-#ifndef BILLINGMANAGER_H
-#define BILLINGMANAGER_H
-
-#include <string>
-#include <functional>
-#include <vector>
-#include <json/json.h>
-
-class BillingManager {
-private:
-    std::string endpoint;
-    std::string credentials;
-
-public:
-    BillingManager(const std::string& endpoint, const std::string& credentials);
-
-    void uploadEvents(const std::vector<Json::Value>& events, std::function<void(bool)> callback);
-};
-
-#endif // BILLINGMANAGER_H
-```
-
-### `BillingManager.cpp` (Refactored)
-```cpp
-#include "BillingManager.h"
-#include <curl/curl.h>
-#include <iostream>
-
-BillingManager::BillingManager(const std::string& endpoint, const std::string& credentials)
-    : endpoint(endpoint), credentials(credentials) {}
-
-void BillingManager::uploadEvents(const std::vector<Json::Value>& events, std::function<void(bool)> callback) {
-    CURL* curl = curl_easy_init();
-    if (!curl) {
-        std::cerr << "Failed to initialize CURL" << std::endl;
-        callback(false);
-        return;
-    }
-
-    // Convert events to JSON string
-    Json::StreamWriterBuilder writer;
-    std::string jsonData = Json::writeString(writer, events);
-
-    curl_easy_setopt(curl, CURLOPT_URL, endpoint.c_str());
-    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
-
-    // Set HTTP headers
-    struct curl_slist* headers = nullptr;
-    headers = curl_slist_append(headers, "Content-Type: application/json");
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-
-    CURLcode res = curl_easy_perform(curl);
-
-    if (res != CURLE_OK) {
-        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-        callback(false);
-    } else {
-        callback(true);
-    }
-
-    // Cleanup
-    curl_slist_free_all(headers);
-    curl_easy_cleanup(curl);
-}
-```
-
-### `MetricsUploadManager.cpp` (Updated)
-```cpp
-#include "MetricsUploadManager.h"
-#include <iostream>
-
-MetricsUploadManager::MetricsUploadManager(BillingManager* bm, BillingDBHelper* dbh)
-    : billingManager(bm), dbHelper(dbh) {}
-
-void MetricsUploadManager::run(bool immediate) {
-    std::unique_lock<std::mutex> lock(mtx);
-    if (!immediate) {
-        cv.wait_for(lock, std::chrono::seconds(30));
-    }
-    while (!stopFlag) {
-        onTrigger();
-        cv.wait_for(lock, std::chrono::seconds(30));
-    }
-}
-
-void MetricsUploadManager::start(bool immediate) {
-    internalThread = std::thread(&MetricsUploadManager::run, this, immediate);
-}
-
-void MetricsUploadManager::onTrigger() {
-    // Fetch records synchronously on the working thread
-    std::vector<Json::Value> events = dbHelper->findRecords(10);
-    
-    if (!events.empty()) {
-        // Upload events synchronously on the working thread
-        billingManager->uploadEvents(events, [this, events](bool success) {
-            if (success) {
-                std::vector<std::string> ids;
-                for (const auto& event : events) {
-                    ids.push_back(event["id"].asString());
-                }
-                dbHelper->deleteRecords(ids);  // Synchronous deletion after successful upload
-            } else {
-                std::cerr << "Upload failed. Retrying next time." << std::endl;
-            }
-        });
-    }
-}
-
-void MetricsUploadManager::stop() {
-    {
-        std::lock_guard<std::mutex> lock(mtx);
-        stopFlag = true;
-    }
-    cv.notify_all();
-    if (internalThread.joinable()) {
-        internalThread.join();
-    }
-}
-```
-
-### Key Changes:
-1. **`uploadEvents` is now synchronous**: Since this method is called on the internal thread, there’s no need for it to be asynchronous. It executes directly and triggers the callback upon completion.
-2. **Reduced complexity**: Removing unnecessary asynchronous execution simplifies both `MetricsUploadManager` and `BillingManager`. Now, all operations happen on the internal working thread, keeping everything synchronous and easier to manage.
-3. **No extra threads**: This refactor avoids creating unnecessary threads, making the code more efficient, as everything runs on a single dedicated thread.
-
-This approach ensures that all operations (database access, network requests) are performed on the internal working thread managed by `MetricsUploadManager` and are executed sequentially without extra threading complexity.
-
 # Much better now, but you can not keep the database openning while the instance of BillingDBHelper lives, refactor it, and open database only before each operation and close it when done. #
 
-Here’s the refactored version of the `BillingDBHelper` class that ensures the database is opened before each operation and closed when done:
+Here are the final versions of all the required files, reflecting the latest changes to ensure the database is opened only before each operation and closed afterward:
 
-### **1. `BillingDBHelper.h` (Refactored)**
+---
+
+### **1. `BillingDBHelper.h`**
 ```cpp
 #ifndef BILLINGDBHELPER_H
 #define BILLINGDBHELPER_H
@@ -462,7 +332,9 @@ public:
 #endif // BILLINGDBHELPER_H
 ```
 
-### **2. `BillingDBHelper.cpp` (Refactored)**
+---
+
+### **2. `BillingDBHelper.cpp`**
 ```cpp
 #include "BillingDBHelper.h"
 #include <iostream>
@@ -532,14 +404,177 @@ void BillingDBHelper::deleteRecords(const std::vector<std::string>& ids) {
 }
 ```
 
-### Key Changes:
-1. **`openDatabase` and `closeDatabase`**: Two helper methods handle opening and closing the database around each operation.
-   - `openDatabase`: Opens the database before any operation and returns a boolean to indicate success or failure.
-   - `closeDatabase`: Closes the database after the operation is complete.
+---
 
-2. **Database Opening/Closing**: The database is opened in `findRecords` and `deleteRecords` before executing queries and closed immediately afterward, ensuring it’s not held open for the lifetime of `BillingDBHelper`.
+### **3. `BillingManager.h`**
+```cpp
+#ifndef BILLINGMANAGER_H
+#define BILLINGMANAGER_H
 
-This approach ensures the database is only open when needed and prevents potential issues with long-running database locks or stale connections.
+#include <string>
+#include <functional>
+#include <vector>
+#include <json/json.h>
+
+class BillingManager {
+private:
+    std::string endpoint;
+    std::string credentials;
+
+public:
+    BillingManager(const std::string& endpoint, const std::string& credentials);
+
+    void uploadEvents(const std::vector<Json::Value>& events, std::function<void(bool)> callback);
+};
+
+#endif // BILLINGMANAGER_H
+```
+
+---
+
+### **4. `BillingManager.cpp`**
+```cpp
+#include "BillingManager.h"
+#include <curl/curl.h>
+#include <iostream>
+
+BillingManager::BillingManager(const std::string& endpoint, const std::string& credentials)
+    : endpoint(endpoint), credentials(credentials) {}
+
+void BillingManager::uploadEvents(const std::vector<Json::Value>& events, std::function<void(bool)> callback) {
+    CURL* curl = curl_easy_init();
+    if (!curl) {
+        std::cerr << "Failed to initialize CURL" << std::endl;
+        callback(false);
+        return;
+    }
+
+    // Convert events to JSON string
+    Json::StreamWriterBuilder writer;
+    std::string jsonData = Json::writeString(writer, events);
+
+    curl_easy_setopt(curl, CURLOPT_URL, endpoint.c_str());
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, jsonData.c_str());
+
+    // Set HTTP headers
+    struct curl_slist* headers = nullptr;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+    CURLcode res = curl_easy_perform(curl);
+
+    if (res != CURLE_OK) {
+        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+        callback(false);
+    } else {
+        callback(true);
+    }
+
+    // Cleanup
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+}
+```
+
+---
+
+### **5. `MetricsUploadManager.h`**
+```cpp
+#ifndef METRICSUPLOADMANAGER_H
+#define METRICSUPLOADMANAGER_H
+
+#include "BillingManager.h"
+#include "BillingDBHelper.h"
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+class MetricsUploadManager {
+private:
+    BillingManager* billingManager;
+    BillingDBHelper* dbHelper;
+    std::thread internalThread;
+    std::mutex mtx;
+    std::condition_variable cv;
+    bool stopFlag = false;
+
+    void run(bool immediate);
+    void onTrigger();
+
+public:
+    MetricsUploadManager(BillingManager* bm, BillingDBHelper* dbh);
+    void start(bool immediate);
+    void stop();
+};
+
+#endif // METRICSUPLOADMANAGER_H
+```
+
+---
+
+### **6. `MetricsUploadManager.cpp`**
+```cpp
+#include "MetricsUploadManager.h"
+#include <iostream>
+
+MetricsUploadManager::MetricsUploadManager(BillingManager* bm, BillingDBHelper* dbh)
+    : billingManager(bm), dbHelper(dbh) {}
+
+void MetricsUploadManager::run(bool immediate) {
+    std::unique_lock<std::mutex> lock(mtx);
+    if (!immediate) {
+        cv.wait_for(lock, std::chrono::seconds(30));
+    }
+    while (!stopFlag) {
+        onTrigger();
+        cv.wait_for(lock, std::chrono::seconds(30));
+    }
+}
+
+void MetricsUploadManager::start(bool immediate) {
+    internalThread = std::thread(&MetricsUploadManager::run, this, immediate);
+}
+
+void MetricsUploadManager::onTrigger() {
+    // Fetch records synchronously on the working thread
+    std::vector<Json::Value> events = dbHelper->findRecords(10);
+    
+    if (!events.empty()) {
+        // Upload events synchronously on the working thread
+        billingManager->uploadEvents(events, [this, events](bool success) {
+            if (success) {
+                std::vector<std::string> ids;
+                for (const auto& event : events) {
+                    ids.push_back(event["id"].asString());
+                }
+                dbHelper->deleteRecords(ids);  // Synchronous deletion after successful upload
+            } else {
+                std::cerr << "Upload failed. Retrying next time." << std::endl;
+            }
+        });
+    }
+}
+
+void MetricsUploadManager::stop() {
+    {
+        std::lock_guard<std::mutex> lock(mtx);
+        stopFlag = true;
+    }
+    cv.notify_all();
+    if (internalThread.joinable()) {
+        internalThread.join();
+    }
+}
+```
+
+---
+
+### Key Updates:
+1. **`BillingDBHelper`**: Now ensures the database is only opened before each operation (in `findRecords` and `deleteRecords`) and closed immediately after.
+2. **Thread-Safe Operations**: A mutex ensures thread safety when multiple threads access the database.
+3. **Synchronous Execution**: All methods like `findRecords`, `deleteRecords`, and `uploadEvents` are now executed synchronously, respecting the internal thread for `MetricsUploadManager`.
+
+This solution ensures proper resource management, thread safety, and that the database remains open only when necessary.
 
 # If the same work assigned to a senior C++ engineer, how long time do you think that he can finish this job? #
 
