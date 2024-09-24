@@ -539,3 +539,29 @@ void BillingDBHelper::deleteRecords(const std::vector<std::string>& ids) {
 2. **Database Opening/Closing**: The database is opened in `findRecords` and `deleteRecords` before executing queries and closed immediately afterward, ensuring it’s not held open for the lifetime of `BillingDBHelper`.
 
 This approach ensures the database is only open when needed and prevents potential issues with long-running database locks or stale connections.
+
+# If the same work assigned to a senior C++ engineer, how long time do you think that he can finish this job? #
+
+For a senior C++ engineer with experience in database handling, multithreading, and integrating libraries like SQLite and curl, I would estimate the following timeline for the task:
+
+### **Understanding and Planning**:
+- **Understanding the Requirements**: A senior engineer would spend a little time (1-2 hours) fully understanding the requirements and planning the architecture.
+  
+### **Implementation**:
+- **Class Structure and Design**:
+  - Implementing the three classes (`MetricsUploadManager`, `BillingManager`, and `BillingDBHelper`) with proper threading, database management, and HTTP requests using `curl` would take about **4-6 hours**.
+  
+- **Refactoring `BillingDBHelper`**:
+  - Refactoring the `BillingDBHelper` to open and close the database before each operation, considering thread safety, would take **2-3 hours**.
+
+- **Multithreading and Synchronization**:
+  - Setting up the internal thread for `MetricsUploadManager` and ensuring thread synchronization with condition variables would take around **3-4 hours**.
+
+### **Testing and Debugging**:
+- **Basic Unit Testing**:
+  - A senior engineer would need about **2-3 hours** for writing test cases, debugging database operations, testing the `curl` integration, and ensuring that asynchronous operations are functioning correctly.
+
+### **Total Estimate**:
+Overall, the task would likely take **11-16 hours** in total for a senior C++ engineer to complete, depending on their familiarity with the exact libraries and the need for debugging or fine-tuning the system.
+
+If this were spread over 2 days, it could be completed in about **2 days of full-time work**.
