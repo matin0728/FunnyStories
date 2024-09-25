@@ -285,13 +285,13 @@ Now, each class has been separated into its own header (`.h`) and implementation
 
 # Addional adjustment prompt #
 
-### Re-organize the code, split to 3 classes and each of them has a header file and the implementation file. ###
+- Re-organize the code, split to 3 classes and each of them has a header file and the implementation file. 
 
-### in the method "onTrigger", when enter the method, it's already on the internal working thread, so, does it really make sense to make the "findRecords" as an async method? ###
+- in the method "onTrigger", when enter the method, it's already on the internal working thread, so, does it really make sense to make the "findRecords" as an async method? 
 
-### How about the method "uploadEvents", which is an async method too and called on the internal working thread, do you need to refactor that to follow the same strategy? ###
+- How about the method "uploadEvents", which is an async method too and called on the internal working thread, do you need to refactor that to follow the same strategy? 
 
-### Give complete contents of all files. ###
+- Give complete contents of all files. 
 
 # Response #
 
