@@ -1,0 +1,24 @@
+Guideline 2.3.1 - Performance
+
+The app contains hidden features.
+
+
+Specifically, it would be appropriate to remove any and all features in this app to load remote webview content before resubmitting for review, such as this app’s JPushRichVideoMessageWebViewController.
+
+Guideline 4.2 - Design - Minimum Functionality
+
+Your app provides a limited user experience as it is not sufficiently different from a web browsing experience. As such, the experience it provides is similar to the general experience of using a web browser. Including features such as push notifications, Core Location, or sharing do not provide a robust enough experience to be appropriate for the App Store.
+
+
+Guideline 4.3(a) - Design - Spam
+
+We still noticed your app shares a similar binary, metadata, and concept as apps submitted to the App Store by other developers, with only minor differences.
+
+
+Submitting similar or repackaged apps is a form of spam that creates clutter and makes it difficult for users to discover new apps.
+
+
+Next Steps
+
+
+Since we do not accept spam apps on the App Store, we encourage you to review your app concept and submit a unique app with distinct content and functionality.

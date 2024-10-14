@@ -2,7 +2,6 @@
 
 ```
 Write a C++ class called UploadManager, has a "upload" method and callback, using "curl" send a post request with headers and parameters, the parameter is an array of "event" struct and send with json serialized data, the "event" object has following fields: "id" which is string, "quantity" which is a int, and the response is json format: {"message": "some message", "request_id": "some id", "results": [{"id": string, "code": "some code", "message": "some message"}, ...]}, you need check the HTTP status, if the request is successful, parse the response and map every entry in "results" field to another object with fileds: id and code, and call the callback function with the mapped array.
-
 ```
 
 Here’s a C++ implementation of the `UploadManager` class using `libcurl` to send a POST request with headers and parameters. The request sends serialized JSON data of `event` structs, and upon receiving the response, it checks the HTTP status and maps the `results` field from the JSON response to another object with `id` and `code`. The callback function is invoked with this mapped data.
