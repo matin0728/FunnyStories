@@ -20,3 +20,4 @@ Anything interesting!
 * [Pass by refrence](y2024/pass_by_refrence.md)
 * [Reference and pointer](y2024/reference_and_pointer.md)
 * [Upload manager](y2024/upload_manager.md)
+* [Local Python server](y2024/python_local_server.md)
