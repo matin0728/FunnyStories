@@ -102,6 +102,7 @@ if __name__ == "__main__":
 
 This should help you test handling both HTTP and HTTPS requests locally.
 
+> It reports "'ssl' has no 'attribute wrap_socket'", what does it mean?
 
 The error `"'ssl' has no attribute 'wrap_socket'"` suggests that there might be an issue with the SSL module not having the expected attribute or function. This could be due to a few reasons, such as a Python version incompatibility or an issue with the environment. 
 

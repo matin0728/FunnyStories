@@ -21,3 +21,4 @@ Anything interesting!
 * [Reference and pointer](y2024/reference_and_pointer.md)
 * [Upload manager](y2024/upload_manager.md)
 * [Local Python server](y2024/python_local_server.md)
+* [Compile curl from source](y2024/compile_curl.md)
