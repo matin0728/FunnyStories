@@ -1,7 +1,7 @@
 # Make me online, for EVER #
 
-> Can write a Python script to shake mouse every 60s that running on MacOS to keep me looks 
-> like active in chat app like Microsoft Teams.
+> Can you write a Python script to shake mouse every 60s that running on MacOS to keep me looks 
+> like always in active state in chat app like Microsoft Teams.
 
     import time
     from Quartz import CGEventCreate, CGEventCreateMouseEvent, kCGEventMouseMoved, kCGMouseButtonLeft, CGEventPost
