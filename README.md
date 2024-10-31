@@ -22,3 +22,4 @@ Anything interesting!
 * [Upload manager](y2024/upload_manager.md)
 * [Local Python server](y2024/python_local_server.md)
 * [Compile curl from source](y2024/compile_curl.md)
+* [Task schedule 2](y2024/task_schedule2.md)
