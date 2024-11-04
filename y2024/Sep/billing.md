@@ -1,3 +1,5 @@
+# Create billing module with detailed instructions #
+
 # Main prompt #
 
 In a ReactNative app, write a C++ module, which is combined with 3 classes: "MetricsUploadManager", "BillingManager", "BillingDBHelper", bellow is the reponsibility they should take:

@@ -1,3 +1,5 @@
+# Updated billing module implementation #
+
 # Refactor "BillingDBHelper::findRecords" to return instances of "BillableEvent", and update files related. #
 
 Here’s the refactored code where `BillingDBHelper::findRecords` returns instances of a new class, `BillableEvent`, and all necessary updates have been applied to related files.

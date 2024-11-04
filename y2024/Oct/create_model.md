@@ -1,3 +1,5 @@
+# Create Codable model template #
+
 ```
     Create a Swift model and sub-model using following struct, and an initializer from type: "[String: AnyHashable]":
     

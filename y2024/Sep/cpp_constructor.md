@@ -1,3 +1,4 @@
+# Singleton patten and property initializer #
 
 I have 2 classes, give the code written with C++ based on descriptioins:
 

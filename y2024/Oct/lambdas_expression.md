@@ -1,4 +1,4 @@
-# Lambdas expression #
+# What is Lambdas Expression in C++? #
 
 A **lambda expression** (or **lambda function**) in C++ is a concise way to define an anonymous function that can be defined in the scope of your code. Lambdas are particularly useful for creating short, throwaway functions that you want to pass as arguments to algorithms or functions, such as with `std::for_each`, `std::sort`, etc. 
 

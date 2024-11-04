@@ -1,25 +1,29 @@
 # FunnyStories
 Anything interesting!
 
-## 2024-09 ##
+## y2024-10 ##
+* [Compile curl from source](y2024/Oct/compile_curl.md)
+* [What is std::contidition_variable and how to use it?](y2024/Oct/condition_variable.md)
+* [Create Codable model template](y2024/Oct/create_model.md)
+* [Sqlite database is locked when multiple threads access](y2024/Oct/database_locked.md)
+* [How can I create a assets bundle on a local dev cocoapods and access image from that?](y2024/Oct/dev_pod_and_assets.md)
+* [Can I use generic types in C++ just like in Swift?](y2024/Oct/generic_type_cpp.md)
+* [JS bridge module for WKWebView](y2024/Oct/js_functionality_to_native.md)
+* [What is Lambdas Expression in C++?](y2024/Oct/lambdas_expression.md)
+* [Make me online, for EVER](y2024/Oct/make_me_online_for_ever.md)
+* [Why and when we will pass by refrence?](y2024/Oct/pass_by_refrence.md)
+* [Python local server](y2024/Oct/python_local_server.md)
+* [Reference and Pointer](y2024/Oct/reference_and_pointer.md)
+* [Task scheduler 2](y2024/Oct/task_schedule2.md)
+* [Task scheduler](y2024/Oct/task_scheduler.md)
+* [Upload Manager](y2024/Oct/upload_manager.md)
+* [WKWebViewPool](y2024/Oct/wkwebview_pool.md)
 
-* [How to fishing with GPT.](y2024/fishing.md)
-* [Story of another version.](y2024/billing.md) , and [Latest updates.](y2024/billing_updates.md)
-* [How to use common locks in C++.](y2024/std_lock.md)
-* [How to use std::async and combined with other function.](y2024/std_async.md)
+## y2024-09 ##
+* [Create billing module with detailed instructions](y2024/Sep/billing.md)
+* [Updated billing module implementation](y2024/Sep/billing_updates.md)
+* [Singleton patten and property initializer](y2024/Sep/cpp_constructor.md)
+* [How to write a whole module step by step](y2024/Sep/fishing.md)
+* [Waht is "std::async" and how to use it](y2024/Sep/std_async.md)
+* [Common locks in C++](y2024/Sep/std_lock.md)
 
-## 20224-10 ##
-
-* [Billing updates](y2024/billing_updates.md)
-* [Billing](y2024/billing.md)
-* [Condition variable](y2024/condition_variable.md)
-* [Cpp constructor](y2024/cpp_constructor.md)
-* [Js functionality to native](y2024/js_functionality_to_native.md)
-* [Lambdas expression](y2024/lambdas_expression.md)
-* [Make me online, for EVER!](y2024/make_me_online_for_ever.md)
-* [Pass by refrence](y2024/pass_by_refrence.md)
-* [Reference and pointer](y2024/reference_and_pointer.md)
-* [Upload manager](y2024/upload_manager.md)
-* [Local Python server](y2024/python_local_server.md)
-* [Compile curl from source](y2024/compile_curl.md)
-* [Task schedule 2](y2024/task_schedule2.md)
