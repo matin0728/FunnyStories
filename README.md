@@ -2,6 +2,7 @@
 Anything interesting!
 
 ## y2024-11 ##
+* [How to migreate git commit in a special way](y2024/Nov/git_migrate_helper.md)
 * [Super and subclass initializer](y2024/Nov/super_and_sub_class.md)
 
 ## y2024-10 ##
