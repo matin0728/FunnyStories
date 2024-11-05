@@ -1,6 +1,9 @@
 # FunnyStories
 Anything interesting!
 
+## y2024-11 ##
+* [Super and subclass initializer](y2024/Nov/super_and_sub_class.md)
+
 ## y2024-10 ##
 * [Compile curl from source](y2024/Oct/compile_curl.md)
 * [What is std::contidition_variable and how to use it?](y2024/Oct/condition_variable.md)
