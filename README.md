@@ -2,6 +2,8 @@
 Anything interesting!
 
 ## y2024-11 ##
+* [Batch find images in assets folder](y2024/Nov/batch_find_image.md)
+* [Create customer diff changes](y2024/Nov/customer_diff_changes.md)
 * [How to migreate git commit in a special way](y2024/Nov/git_migrate_helper.md)
 * [Super and subclass initializer](y2024/Nov/super_and_sub_class.md)
 
