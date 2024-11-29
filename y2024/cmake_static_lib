@@ -1,0 +1,69 @@
+# Generate static library from cmake file #
+
+> I'd like to support iPhone device and simulator but MacOS, how can I change the command?
+
+To support **both iPhone devices and simulators** but exclude **macOS**, you need to configure CMake to generate builds specifically for iOS platforms. This involves targeting both the `iphoneos` and `iphonesimulator` SDKs and ensuring CMake doesn't default to macOS. Here's how to adjust your workflow.
+
+---
+
+### Step 1: Generate a Universal iOS Build (Device + Simulator)
+
+Use CMake to configure the project for iOS, targeting **both iPhone devices and simulators**:
+
+```bash
+cmake -G Xcode -B build -DCMAKE_SYSTEM_NAME=iOS
+```
+
+- `-G Xcode`: Specifies the Xcode generator.
+- `-B build`: Specifies the build directory.
+- `-DCMAKE_SYSTEM_NAME=iOS`: Configures CMake for the iOS platform, ensuring macOS is excluded.
+
+---
+
+### Step 2: Build for Both Device and Simulator Architectures
+
+Build your project twice: once for the **device** and once for the **simulator**. You'll use the `-sdk` option to specify the target platform.
+
+#### 1. **Build for iPhone Devices (`iphoneos`)**:
+```bash
+cmake --build build --config Release -- -sdk iphoneos
+```
+
+#### 2. **Build for iPhone Simulator (`iphonesimulator`)**:
+```bash
+cmake --build build --config Release -- -sdk iphonesimulator
+```
+
+---
+
+### Step 3: Create a Universal (Fat) Binary
+
+To combine the builds for the device and simulator into a single **universal binary**, use the `lipo` or `xcodebuild` tool.
+
+#### Using `lipo`:
+After building, combine the binaries (e.g., `.a` or `.framework` files) into a single universal binary:
+```bash
+lipo -create -output build/Release-universal/MyLibrary.a \
+    build/Release-iphoneos/MyLibrary.a \
+    build/Release-iphonesimulator/MyLibrary.a
+```
+
+#### Using `xcodebuild` (Preferred for Frameworks):
+Xcode's `build` command can automatically handle device/simulator builds with the `-destination` flag:
+```bash
+xcodebuild -project build/MyProject.xcodeproj \
+    -scheme MyScheme \
+    -configuration Release \
+    -destination 'generic/platform=iOS' \
+    -destination 'generic/platform=iOS Simulator' \
+    build
+```
+
+---
+
+### Notes:
+- **Exclude macOS**: The `-DCMAKE_SYSTEM_NAME=iOS` ensures macOS is not included in the build targets.
+- **Bitcode Support**: If you're targeting iOS App Store submissions, ensure bitcode is enabled in your Xcode build settings.
+- **CMake Toolchains**: If your project requires a custom toolchain for iOS, provide it using the `-DCMAKE_TOOLCHAIN_FILE=path/to/ios.toolchain.cmake` flag.
+
+With this setup, you’ll generate binaries compatible with both iPhone devices and simulators while excluding macOS.
