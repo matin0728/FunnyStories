@@ -2,7 +2,18 @@
 Anything interesting!
 
 ## y2024-03 ##
+* [Untitled](y2024/Mar/caculate_header_file_dependencies.md)
+* [Untitled](y2024/Mar/cmake_and_make.md)
+* [Untitled](y2024/Mar/cmakelist_scope.md)
+* [Compile Marian as static lib](y2024/Mar/compile_marian_as_lib.md)
+* [Untitled](y2024/Mar/compile_static_lib.md)
+* [Cpp static lib compile trouble shooting](y2024/Mar/cpp_static_lib_compile_trouble_shooting.md)
 * [Untitled](y2024/Mar/flutter_state_management.md)
+* [Untitled](y2024/Mar/gcc_unknown_cpu.md)
+* [Untitled](y2024/Mar/python_ignore.md)
+* [Untitled](y2024/Mar/specify_target_for_cmake.md)
+* [Tips to use ChatGPT](y2024/Mar/tips_to_use_chatgpt.md)
+* [Untitled](y2024/Mar/tools_ar_nm.md)
 
 ## y2024-11 ##
 * [Batch find images in assets folder](y2024/Nov/batch_find_image.md)
