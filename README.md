@@ -50,3 +50,6 @@ Anything interesting!
 * [Tips to use ChatGPT](y2025/Mar/tips_to_use_chatgpt.md)
 * [Untitled](y2025/Mar/tools_ar_nm.md)
 
+## y2025-05 ##
+* [How to create a demo from scratch with Cursor editor](y2025/May/flutter_demo_prompt.md)
+
