@@ -1,4 +1,4 @@
-# Gcc trouble shooting
+# Gcc trouble shooting #
 
 > Unknown target CPU 'armv8-a+simd'
 

@@ -1,4 +1,4 @@
-# Caculate header files dependencies
+# Caculate header files dependencies #
 
 > Write a python script to caculate header file dependencies, given source files, base folder, destination folder as params, follow rules:
 >  1. Give one or more header file as source files.

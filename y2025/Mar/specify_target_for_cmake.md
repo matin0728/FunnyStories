@@ -1,4 +1,4 @@
-# Specify a single target to compile
+# Specify a single target to compile #
 
 > I found I have multiple target, and the one I want is "marian", I use the command "cmake --build .",
 > is that mean to compile all targets? How to compile only one target?

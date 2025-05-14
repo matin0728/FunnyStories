@@ -1,4 +1,4 @@
-# How to create config for static lib
+# How to create config for static lib #
 
 > I have a lib written in C++, by default I run "cmake" and "make", it gave me several executables,
 > but what I want is compile it to a static lib which can be used in an iOS app, how can I do that?

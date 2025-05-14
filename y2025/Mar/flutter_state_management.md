@@ -1,4 +1,4 @@
-# How to manage and access global state in Flutter?
+# How to manage and access global state in Flutter? #
 
 // 定义全局数据控制器
 class GlobalController extends GetxController {

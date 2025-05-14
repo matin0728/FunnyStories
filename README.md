@@ -37,19 +37,19 @@ Anything interesting!
 * [Untitled](y2025/Apr/pack_flutter_app.md)
 
 ## y2025-03 ##
-* [Untitled](y2025/Mar/caculate_header_file_dependencies.md)
-* [Untitled](y2025/Mar/cmake_and_make.md)
-* [Untitled](y2025/Mar/cmakelist_scope.md)
+* [Caculate header files dependencies](y2025/Mar/caculate_header_file_dependencies.md)
+* [Cmake and make tool](y2025/Mar/cmake_and_make.md)
+* [CMakeLists execute order](y2025/Mar/cmakelist_scope.md)
 * [Compile Marian as static lib](y2025/Mar/compile_marian_as_lib.md)
-* [Untitled](y2025/Mar/compile_static_lib.md)
+* [How to create config for static lib](y2025/Mar/compile_static_lib.md)
 * [Cpp static lib compile trouble shooting](y2025/Mar/cpp_static_lib_compile_trouble_shooting.md)
-* [Untitled](y2025/Mar/flutter_state_management.md)
-* [Untitled](y2025/Mar/gcc_unknown_cpu.md)
-* [Untitled](y2025/Mar/python_ignore.md)
-* [Untitled](y2025/Mar/specify_target_for_cmake.md)
+* [How to manage and access global state in Flutter?](y2025/Mar/flutter_state_management.md)
+* [Gcc trouble shooting](y2025/Mar/gcc_unknown_cpu.md)
+* [Python ignore file](y2025/Mar/python_ignore.md)
+* [Specify a single target to compile](y2025/Mar/specify_target_for_cmake.md)
 * [Tips to use ChatGPT](y2025/Mar/tips_to_use_chatgpt.md)
-* [Untitled](y2025/Mar/tools_ar_nm.md)
+* [what is the tools ar and nm?](y2025/Mar/tools_ar_nm.md)
 
 ## y2025-05 ##
-* [How to create a demo from scratch with Cursor editor](y2025/May/flutter_demo_prompt.md)
+* [Untitled](y2025/May/flutter_demo_prompt.md)
 

@@ -1,4 +1,4 @@
-# Python ignore file
+# Python ignore file #
 
 > Write a git ignore file to used in a python git repo, by using it, it should exclude files like ".DS_Store", ".idea" 
 

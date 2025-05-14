@@ -1,4 +1,4 @@
-# what is the tools ar and nm?
+# what is the tools ar and nm? #
 
 `ar` and `nm` are command-line tools commonly used in development to work with static libraries and inspect symbols in object files or libraries. Here's an explanation of each:
 
