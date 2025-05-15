@@ -1,3 +1,8 @@
+![alt text](https://github.com/matin0728/FunnyStories/blob/main/images/demo_preview1.png)
+![alt text](https://github.com/matin0728/FunnyStories/blob/main/images/demo_preview2.png)
+![alt text](https://github.com/matin0728/FunnyStories/blob/main/images/demo_preview3.png)
+![alt text](https://github.com/matin0728/FunnyStories/blob/main/images/demo_preview4.png)
+
 # How to create a demo from scratch with Cursor editor
 
 ## Initial command
